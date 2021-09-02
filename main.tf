@@ -6,7 +6,10 @@ provider "azurerm" {
  
     features {}
 }
-
+variable "imagebuild" {
+  type        = string
+  description = "Latest Image Build"
+}
 terraform {
     backend "azurerm" {
         resource_group_name  = "tf_rg_blobstore"
@@ -32,7 +35,7 @@ resource "azurerm_container_group" "tfcg_test" {
 
   container {
     name            = "weatherapi"
-    image           = "sichilam/weatherapi"
+    image           = "sichilam/weatherapi:${var.imagebuild}"
     cpu             = "1"
     memory          = "1"
 
